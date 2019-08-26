@@ -1,0 +1,118 @@
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class project {
+
+	JFrame frame;
+	JComboBox system;
+	JTextField mass;
+	JTextField height;
+	JButton calculate;
+	
+	
+	project()
+	{
+		frame= new JFrame();
+		frame.setSize(192,200);
+		
+		frame.getContentPane().setBackground(Color.CYAN);
+		frame.setTitle("BODY MASS INDEX CALCULATOR");
+		frame.setLayout(new FlowLayout());
+
+		mass=new JTextField(8);
+		height=new JTextField(8);
+		
+		String[] string= {"Standard(lb,in)","Metric(kg,cm)"};
+	    system=new JComboBox(string);
+	    
+	    
+	    calculate= new JButton("Calculate your BMI");
+	    calculate.addActionListener(new Mylist());
+	    
+	    frame.add(new JLabel("SYSTEM:"));
+	    frame.add(system);
+	   
+	    frame.add(new JLabel("MASS:"));
+	    frame.add(mass);
+	   
+	    frame.add(new JLabel("HEIGHT:"));
+	    frame.add(height);
+	    
+	    frame.add(calculate);
+	    
+	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    frame.setVisible(true);
+	    
+
+	}
+	
+	
+	
+	public static void main(String[] args) {
+	new project();
+		
+	}
+	
+	public class Mylist implements ActionListener
+	{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+			double m=Double.valueOf(mass.getText());
+			
+		    double h=Double.valueOf(height.getText());
+		    
+		    
+		  double result;  
+		  if(system.getSelectedItem().equals("Standard(lb,in)"))
+		  {
+			  result= m/(h*h);
+			  result=703*result;
+		
+	      }
+		  
+		  else
+		  {
+			  result= m/(h*h);
+			  result=result*10000;
+			  System.out.println("metric done"+ result);
+		  }
+		    
+		    
+		   result= Double.valueOf(String.format("%.1f",result));
+		 
+		   
+		   if(result<18.5)	
+			    JOptionPane.showMessageDialog(null, "Underweight! Your BMI is " + result, "MY BMI", JOptionPane.OK_OPTION);
+			
+			else if(result<=24.9 && result>=18.5)
+				JOptionPane.showMessageDialog(null, "Normal Weight! Your BMI is " + result, "MY BMI", JOptionPane.DEFAULT_OPTION);
+			
+			else if(result<=29.9 && result>24.9)
+				JOptionPane.showMessageDialog(null, "Overweight! Your BMI is " + result, "MY BMI",JOptionPane.OK_OPTION);
+			
+			else
+				JOptionPane.showMessageDialog(null, "Obese! Your BMI is " + result, "MY BMI", JOptionPane.OK_OPTION);
+			
+			
+		}
+
+			
+    }
+		
+	}
+	
+
+
+
